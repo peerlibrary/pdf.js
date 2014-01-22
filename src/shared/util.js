@@ -806,7 +806,7 @@ function isPDFFunction(v) {
 var LegacyPromise = PDFJS.LegacyPromise = (function LegacyPromiseClosure() {
   return function LegacyPromise() {
     var resolve, reject;
-    var promise = new Promise(function (resolve_, reject_) {
+    var promise = new globalScope.Promise(function (resolve_, reject_) {
       resolve = resolve_;
       reject = reject_;
     });
