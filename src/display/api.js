@@ -214,6 +214,13 @@ var PDFDocumentProxy = (function PDFDocumentProxyClosure() {
       return this.pdfInfo.fingerprint;
     },
     /**
+     * @return {string} sha256 hash.
+     */
+     // this function is added as part of peerlibrary project
+    get sha256() {
+      return this.pdfInfo.sha256;
+    },
+    /**
      * @return {boolean} true if embedded document fonts are in use. Will be
      * set during rendering of the pages.
      */

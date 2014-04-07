@@ -37,9 +37,11 @@ var WorkerMessageHandler = PDFJS.WorkerMessageHandler = {
         var metadataPromise = pdfManager.ensureCatalog('metadata');
         var encryptedPromise = pdfManager.ensureXRef('encrypt');
         var javaScriptPromise = pdfManager.ensureCatalog('javaScript');
+        // sha256Promise is added as part of peerlibrary project
+        var sha256Promise = pdfManager.ensureModel('sha256');
         Promise.all([numPagesPromise, fingerprintPromise, outlinePromise,
           infoPromise, metadataPromise, encryptedPromise,
-          javaScriptPromise]).then(
+          javaScriptPromise, sha256Promise]).then(
             function onDocReady(results) {
 
           var doc = {
@@ -49,7 +51,8 @@ var WorkerMessageHandler = PDFJS.WorkerMessageHandler = {
             info: results[3],
             metadata: results[4],
             encrypted: !!results[5],
-            javaScript: results[6]
+            javaScript: results[6],
+            sha256: results[7]
           };
           loadDocumentPromise.resolve(doc);
         },

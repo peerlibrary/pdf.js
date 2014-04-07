@@ -494,6 +494,27 @@ var PDFDocument = (function PDFDocumentClosure() {
 
       return shadow(this, 'fingerprint', fileID);
     },
+    // this function is added as part of peerlibrary project
+    get sha256() {
+      var hash = Digest.SHA256();
+      // calculate hash in chunks
+      var CHUNK_SIZE = 128 * 1024; // bytes
+      var chunkStart = 0, chunkEnd, streamLength = this.stream.bytes.byteLength;
+      while(chunkStart < streamLength){
+        chunkEnd = chunkStart + CHUNK_SIZE < streamLength ? chunkStart + CHUNK_SIZE : streamLength;
+        hash.update(this.stream.bytes.subarray(chunkStart, chunkEnd));
+        chunkStart += CHUNK_SIZE;
+      }
+
+      var hexTab = '0123456789abcdef', str = '', _i, _len, a;
+      var array = new Uint8Array(hash.finalize());
+      for (_i = 0, _len = array.length; _i < _len; _i++) {
+        a = array[_i];
+        str += hexTab.charAt((a >>> 4) & 0xF) + hexTab.charAt(a & 0xF);
+        }
+
+      return shadow(this, 'sha256', str);
+    },
 
     getPage: function PDFDocument_getPage(pageIndex) {
       return this.catalog.getPage(pageIndex);
