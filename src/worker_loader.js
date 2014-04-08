@@ -28,6 +28,7 @@ var sharedFiles = [
 
 // List of other files to include;
 var otherFiles = [
+  '/packages/digest/digest/digest.js',
   'core/network.js',
   'core/chunked_stream.js',
   'core/pdf_manager.js',
